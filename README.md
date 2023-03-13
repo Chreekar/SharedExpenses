@@ -1,6 +1,17 @@
 # SharedExpenses
 Split household costs in relation to net income
 
+## How to run
+
+```
+cd Backend/SharedExpenses.Web
+dotnet restore
+dotnet run
+cd ../../Frontend
+npm install
+npm run dev
+```
+
 ## TODO
 
 ### Common
@@ -10,3 +21,6 @@ Split household costs in relation to net income
 ### Backend
 - Better handling of Update without duplicate reading of entity
 - Replace Constants.TenantId with a proper authentication solution
+
+### Frontend
+- Use svelte-i18n to format money instead of hard coded SEK
