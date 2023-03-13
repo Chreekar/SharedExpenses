@@ -31,6 +31,13 @@ public class Program
             options.RoutePrefix = string.Empty;
         });
 
+        app.UseCors(options =>
+        {
+            options.AllowAnyHeader();
+            options.AllowAnyMethod();
+            options.AllowAnyOrigin();
+        });
+
         app.Run();
     }
 }
