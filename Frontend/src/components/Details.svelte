@@ -3,7 +3,7 @@
 
   import type { MonthlyExpenseApiModel } from "../core/backend-proxy";
   import type { AppConfig } from "../core/config";
-  import { formatMonth, formatMoney } from "../core/format-helpers";
+  import { formatMoney } from "../core/format-helpers";
   import { getCalculations } from "../core/logic";
 
   export let item: MonthlyExpenseApiModel;
@@ -12,7 +12,10 @@
   $: workingCopy = { ...item };
   $: calculationResults = getCalculations(workingCopy, appSettings);
 
-  const dispatch = createEventDispatcher<{ cancelled: void, changed: MonthlyExpenseApiModel }>();
+  const dispatch = createEventDispatcher<{
+    cancelled: void;
+    changed: MonthlyExpenseApiModel;
+  }>();
 
   function updateValue(
     target: EventTarget & HTMLInputElement,
@@ -31,12 +34,12 @@
     );
   }
 
-  function close() {
+  function cancel() {
     dispatch("cancelled");
   }
 
-  function update() {
-    // TODO: Show spinner and lock inputs
+  function change() {
+    // TODO: Show spinner and lock inputs + disable buttons
     dispatch("changed", workingCopy);
   }
 </script>
@@ -144,8 +147,9 @@
 </form>
 <hr />
 <div class="mt-4">
-  <button class="btn btn-primary" on:click={close}>Cancel</button>
+  <button class="btn btn-primary" on:click={cancel}>Cancel</button>
   {#if isDirty(workingCopy)}
-    <button class="btn btn-success float-right" on:click={update}>Update</button>
+    <button class="btn btn-success float-right" on:click={change}>Save</button
+    >
   {/if}
 </div>

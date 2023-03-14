@@ -7,16 +7,17 @@
   export let items: MonthlyExpenseApiModel[];
 
   const dispatch = createEventDispatcher<{
-    selected: MonthlyExpenseApiModel;
-    deleted: MonthlyExpenseApiModel;
+    selectedForView: MonthlyExpenseApiModel;
+    selectedForDelete: MonthlyExpenseApiModel;
   }>();
 
-  function select(item: MonthlyExpenseApiModel) {
-    dispatch("selected", item);
+  function viewItem(item: MonthlyExpenseApiModel) {
+    dispatch("selectedForView", item);
   }
 
   function deleteItem(item: MonthlyExpenseApiModel) {
-    dispatch("deleted", item);
+    // TODO: Show spinner and disable buttons
+    dispatch("selectedForDelete", item);
   }
 </script>
 
@@ -38,10 +39,10 @@
         <td
           ><button
             class="btn btn-primary btn-sm mb-0 mr-2"
-            on:click={(e) => select(item)}>View</button
+            on:click={() => viewItem(item)}>View</button
           ><button
             class="btn btn-danger btn-sm mb-0"
-            on:click={(e) => deleteItem(item)}>Delete</button
+            on:click={() => deleteItem(item)}>Delete</button
           ></td
         >
       </tr>

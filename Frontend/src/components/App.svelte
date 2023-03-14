@@ -41,15 +41,11 @@
     return "Overview";
   }
 
-  function itemSelected(event: CustomEvent<MonthlyExpenseApiModel>) {
+  function viewItem(event: CustomEvent<MonthlyExpenseApiModel>) {
     selectedItem = event.detail;
   }
 
-  function itemUnselected() {
-    selectedItem = null;
-  }
-
-  function itemDeleted(event: CustomEvent<MonthlyExpenseApiModel>) {
+  function deleteItem(event: CustomEvent<MonthlyExpenseApiModel>) {
     api
       .deleteMonthlyExpense(event.detail.year, event.detail.month)
       .then(() => {
@@ -60,7 +56,11 @@
       });
   }
 
-  function itemChanged(event: CustomEvent<MonthlyExpenseApiModel>) {
+  function clearItem() {
+    selectedItem = null;
+  }
+
+  function updateItem(event: CustomEvent<MonthlyExpenseApiModel>) {
     const requestModel: MonthlyExpensePutApiModel = {
       netIncomePartner1: event.detail.netIncomePartner1,
       netIncomePartner2: event.detail.netIncomePartner2,
@@ -101,14 +101,14 @@
               <Details
                 item={selectedItem}
                 {appSettings}
-                on:cancelled={itemUnselected}
-                on:changed={itemChanged}
+                on:cancelled={clearItem}
+                on:changed={updateItem}
               />
             {:else}
               <List
                 items={allItems}
-                on:selected={itemSelected}
-                on:deleted={itemDeleted}
+                on:selectedForView={viewItem}
+                on:selectedForDelete={deleteItem}
               />
             {/if}
           </div>
