@@ -5,4 +5,7 @@ export function getAppConfig(): Promise<AppConfig> {
 export interface AppConfig
 {
     apiBaseUrl: string;
+    defaultExpenseSaving: number;
+    defaultExpenseGroceries: number;
+    roundUpTotalNearest: number;
 }

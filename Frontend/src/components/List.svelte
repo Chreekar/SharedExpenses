@@ -19,8 +19,8 @@
   <thead>
     <tr>
       <th scope="col">Month</th>
-      <th scope="col">Partner1</th>
-      <th scope="col">Partner2</th>
+      <th scope="col">Partner 1</th>
+      <th scope="col">Partner 2</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
