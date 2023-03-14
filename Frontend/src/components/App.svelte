@@ -49,6 +49,17 @@
     selectedItem = null;
   }
 
+  function itemDeleted(event: CustomEvent<MonthlyExpenseApiModel>) {
+    api
+      .deleteMonthlyExpense(event.detail.year, event.detail.month)
+      .then(() => {
+        allItems = allItems.filter((x) => x.id !== event.detail.id);
+      })
+      .catch((error) => {
+        // TODO: Pass error message to List component
+      });
+  }
+
   function itemChanged(event: CustomEvent<MonthlyExpenseApiModel>) {
     const requestModel: MonthlyExpensePutApiModel = {
       netIncomePartner1: event.detail.netIncomePartner1,
@@ -94,7 +105,11 @@
                 on:changed={itemChanged}
               />
             {:else}
-              <List items={allItems} on:selected={itemSelected} />
+              <List
+                items={allItems}
+                on:selected={itemSelected}
+                on:deleted={itemDeleted}
+              />
             {/if}
           </div>
         </div>
