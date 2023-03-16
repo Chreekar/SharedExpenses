@@ -2,16 +2,19 @@
   import {
     GeneratedBackendProxy,
     type MonthlyExpenseApiModel,
+    type MonthlyExpensePostApiModel,
     type MonthlyExpensePutApiModel,
   } from "../core/backend-proxy";
   import { getAppConfig, type AppConfig } from "../core/config";
   import { formatMonth } from "../core/format-helpers";
+  import { getOrderedItems } from "../core/logic";
 
   import Details from "./Details.svelte";
+  import Creator from "./Creator.svelte";
   import List from "./List.svelte";
 
   let isLoading = true;
-  let isError = false;
+  let isLoadError = false;
 
   let api: GeneratedBackendProxy;
   let appSettings: AppConfig;
@@ -28,7 +31,7 @@
       allItems = items;
     })
     .catch(() => {
-      isError = true;
+      isLoadError = true;
     })
     .finally(() => {
       isLoading = false;
@@ -58,6 +61,28 @@
 
   function clearItem() {
     selectedItem = null;
+  }
+
+  function createItem(event: CustomEvent<Date>) {
+    const requestModel: MonthlyExpensePostApiModel = {
+      year: event.detail.getFullYear(),
+      month: event.detail.getMonth() + 1,
+      netIncomePartner1: 0,
+      netIncomePartner2: 0,
+      expenseFixed: 0,
+      expenseExtra: 0,
+      expenseSaving: appSettings.defaultExpenseSaving,
+      expenseGroceries: appSettings.defaultExpenseGroceries,
+    };
+    api
+      .postMonthlyExpense(requestModel)
+      .then((result) => {
+        allItems = getOrderedItems([...allItems, result]);
+        selectedItem = result;
+      })
+      .catch((error) => {
+        // TODO: Pass error message to Creator component
+      });
   }
 
   function updateItem(event: CustomEvent<MonthlyExpenseApiModel>) {
@@ -95,7 +120,7 @@
           <div class="card-body">
             {#if isLoading}
               Loading...
-            {:else if isError}
+            {:else if isLoadError}
               Error: could not load items!
             {:else if selectedItem}
               <Details
@@ -105,6 +130,7 @@
                 on:changed={updateItem}
               />
             {:else}
+              <Creator items={allItems} on:selectedForCreation={createItem} />
               <List
                 items={allItems}
                 on:selectedForView={viewItem}

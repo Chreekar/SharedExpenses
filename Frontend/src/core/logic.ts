@@ -2,7 +2,7 @@ import type { MonthlyExpenseApiModel } from "./backend-proxy";
 import type { AppConfig } from "./config";
 
 export function getOrderedItems(items: MonthlyExpenseApiModel[]) {
-    return items.sort((a, b) => a.year > b.year ? 1 : (a.month > b.month ? 1 : -1));
+    return [...items].sort((a, b) => a.year > b.year ? -1 : (a.year < b.year ? 1 : (a.month > b.month ? -1 : 1)));
 }
 
 export function getCalculations(item: MonthlyExpenseApiModel, appSettings: AppConfig): CalculationResults {

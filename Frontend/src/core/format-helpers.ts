@@ -1,5 +1,5 @@
 export function formatMonth(month: number) {
-    return new Date(2000, month, 1).toLocaleString("default", {
+    return new Date(2000, month - 1, 1).toLocaleString("default", {
         month: "long",
     });
 }

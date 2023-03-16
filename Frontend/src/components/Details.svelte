@@ -147,7 +147,7 @@
 </form>
 <hr />
 <div class="mt-4">
-  <button class="btn btn-primary" on:click={cancel}>Cancel</button>
+  <button class="btn btn-primary" on:click={cancel}>Close</button>
   {#if isDirty(workingCopy)}
     <button class="btn btn-success float-right" on:click={change}>Save</button
     >
