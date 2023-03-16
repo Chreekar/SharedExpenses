@@ -1,6 +1,8 @@
 # SharedExpenses
 Split household costs in relation to net income. By entering the net incomes of both partners and expenses in different categories, the amount that each partner should transfer to the household withdrawal account is calculated.
 
+![Alt text](/screenshot.png?raw=true "Screenshot")
+
 ## How to run
 
 ```
