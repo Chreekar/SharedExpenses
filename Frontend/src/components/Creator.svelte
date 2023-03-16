@@ -14,13 +14,9 @@
     const result: Date[] = [];
     let current = new Date();
     do {
-      if (
-        items.some(
-          (x) =>
-            x.year === current.getFullYear() &&
-            x.month === current.getMonth() + 1
-        )
-      ) {
+      if (items.some((x) =>
+            x.year === current.getFullYear() && x.month === current.getMonth() + 1
+        )) {
         continue;
       }
       result.push(current);
@@ -49,17 +45,10 @@
 
 <div class="row mb-5">
   <div class="col-sm-6 pr-0">
-    <select
-      class="form-control"
-      on:change={(e) => setSelectedDate(e.currentTarget)}
-    >
+    <select class="form-control" on:change={(e) => setSelectedDate(e.currentTarget)}>
       {#each selectableDates as selectableDate}
-        <option
-          value={selectableDate}
-          selected={selectableDate === selectedDate}
-        >
-          {selectableDate.getFullYear()}
-          {formatMonth(selectableDate.getMonth() + 1)}
+        <option value={selectableDate} selected={selectableDate === selectedDate}>
+          {selectableDate.getFullYear()} {formatMonth(selectableDate.getMonth() + 1)}
         </option>
       {/each}
     </select>

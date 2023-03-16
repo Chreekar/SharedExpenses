@@ -17,10 +17,7 @@
     changed: MonthlyExpenseApiModel;
   }>();
 
-  function updateValue(
-    target: EventTarget & HTMLInputElement,
-    propertyName: string
-  ) {
+  function updateValue(target: EventTarget & HTMLInputElement, propertyName: string) {
     const value = Number.isNaN(target.valueAsNumber) ? 0 : target.valueAsNumber;
     workingCopy = {
       ...workingCopy,
@@ -81,9 +78,7 @@
       value={workingCopy.expenseFixed}
       on:input={(e) => updateValue(e.currentTarget, "expenseFixed")}
     />
-    <small id="expenseFixedHelp" class="form-text text-muted"
-      >Mortages, billing and so on</small
-    >
+    <small id="expenseFixedHelp" class="form-text text-muted">Mortages, billing and so on</small>
   </div>
   <div class="form-group">
     <label for="inputExpenseExtra">Extra expenses</label>
@@ -97,9 +92,7 @@
       value={workingCopy.expenseExtra}
       on:input={(e) => updateValue(e.currentTarget, "expenseExtra")}
     />
-    <small id="expenseExtraHelp" class="form-text text-muted"
-      >Special expenses for this month</small
-    >
+    <small id="expenseExtraHelp" class="form-text text-muted">Special expenses for this month</small>
   </div>
   <div class="form-group">
     <label for="inputSavingExtra">Saving expenses</label>
@@ -125,31 +118,24 @@
       value={workingCopy.expenseGroceries}
       on:input={(e) => updateValue(e.currentTarget, "expenseGroceries")}
     />
-    <small id="expenseGroceriesHelp" class="form-text text-muted"
-      >Groceries, restaurant visits and so on</small
-    >
+    <small id="expenseGroceriesHelp" class="form-text text-muted">Groceries, restaurant visits and so on</small>
   </div>
   <hr />
   <p>
-    Total expenses: {formatMoney(calculationResults.roundedTotalExpenses)} (rounded
-    up to nearest {appSettings.roundUpTotalNearest})
+    Total expenses: {formatMoney(calculationResults.roundedTotalExpenses)} 
+    (rounded up to nearest {appSettings.roundUpTotalNearest})
   </p>
   <p>
-    Partner 1 should transfer: {formatMoney(
-      calculationResults.transferAmountPartner1
-    )}
+    Partner 1 should transfer: {formatMoney(calculationResults.transferAmountPartner1)}
   </p>
   <p>
-    Partner 2 should transfer: {formatMoney(
-      calculationResults.transferAmountPartner2
-    )}
+    Partner 2 should transfer: {formatMoney(calculationResults.transferAmountPartner2)}
   </p>
 </form>
 <hr />
 <div class="mt-4">
   <button class="btn btn-primary" on:click={cancel}>Close</button>
   {#if isDirty(workingCopy)}
-    <button class="btn btn-success float-right" on:click={change}>Save</button
-    >
+    <button class="btn btn-success float-right" on:click={change}>Save</button>
   {/if}
 </div>

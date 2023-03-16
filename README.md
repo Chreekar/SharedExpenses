@@ -1,5 +1,5 @@
 # SharedExpenses
-Split household costs in relation to net income
+Split household costs in relation to net income. By entering the net incomes of both partners and expenses in different categories, the amount that each partner should transfer to the household withdrawal account is calculated.
 
 ## How to run
 
@@ -21,6 +21,12 @@ npm run dev
 ### Backend
 - Better handling of Update without duplicate reading of entity
 - Replace Constants.TenantId with a proper authentication solution
+- Unit testing
 
 ### Frontend
 - Use svelte-i18n to format money instead of hard coded SEK
+- Error handling, loading state, unit testing...
+
+## Gotchas
+
+- When getting the month from the javascript `Date`, January will be 0 and not 1 as represented in the backend.

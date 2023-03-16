@@ -36,15 +36,14 @@
         <td>{item.year} {formatMonth(item.month)}</td>
         <td>{formatMoney(item.netIncomePartner1)}</td>
         <td>{formatMoney(item.netIncomePartner2)}</td>
-        <td
-          ><button
+        <td>
+          <button
             class="btn btn-primary btn-sm mb-0 mr-2"
-            on:click={() => viewItem(item)}>View</button
-          ><button
+            on:click={() => viewItem(item)}>View</button>
+          <button
             class="btn btn-danger btn-sm mb-0"
-            on:click={() => deleteItem(item)}>Delete</button
-          ></td
-        >
+            on:click={() => deleteItem(item)}>Delete</button>
+        </td>
       </tr>
     {/each}
   </tbody>
